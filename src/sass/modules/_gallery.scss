@@ -23,6 +23,10 @@
   margin: auto;
   max-width: 280px;
 
+  img {
+    height: 398px;
+    object-fit: cover;
+  }
   @media screen and (max-width: 767px) {
     &:not(:last-child) {
       margin-bottom: 20px;
@@ -43,12 +47,15 @@
 
 .card-title {
   margin-top: 10px;
-line-height: 1.3;
+  line-height: 1.3;
 }
 
 .desc {
   color: $bright-color-orange;
   margin-top: 4px;
+  span {
+    display: block;
+  }
 }
 
 .pagination {
@@ -61,5 +68,4 @@ line-height: 1.3;
   @media screen and (min-width: $tablet) {
     margin-top: 50px;
   }
-
 }
