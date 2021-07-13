@@ -21,14 +21,15 @@ async function getMovieById(e) {
         const response = await fetch(`${options.BASE_URL}movie/${filmId}?api_key=${options.API_KEY}`);
         const result = await response.json();
         const render = await renderOpenedMovie(result);
-        const addToLS = await addToLockalS(result)
-        // const removeFromLS = await removeFromLockalS(result)
-      
+        const addToLS = await addToLockalS(result);
+        
+        
         window.addEventListener('keydown', onEscKeyDown);
         document.body.classList.add('show-modal');
         document.body.classList.add('scroll-hidden');
     }   catch {
         console.log('Oops!');
+        // console.log(err);
     }
 }
 

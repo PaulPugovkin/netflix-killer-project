@@ -2,84 +2,142 @@ export default function addToLockalS(filmUser) {
   const btnWatchedEl = document.querySelector('.btn-watched-js');
   const btnQueueEl = document.querySelector('.btn-queue-js');
 
-  // btnWatchedEl.innerText.toLowerCase()==='add to watched';
 
-// if(!localStorage.watchedFilm){
-
-  btnWatchedEl.addEventListener('click', () => {
-   
-   btnWatchedEl.innerText = 'remove from watched'
-   if (!localStorage.watchedFilm) {
-    const films = [];
-
-    films.push(filmUser);
-    localStorage.setItem(`watchedFilm`, JSON.stringify(films));
-} else {
+  if(!localStorage.watchedFilm){
+    btnWatchedEl.addEventListener('click', onClickBtnAddToWatched);
+  } 
+  else {
     const filmsStr = localStorage.getItem('watchedFilm');
+    btnWatchedEl.addEventListener('click', onClickBtnAddToWatched);
 
-      if (filmsStr.indexOf(`${filmUser.id}`) && filmsStr.indexOf(`${filmUser.id}`) !== -1) {
-        console.log('есть такой!!!');
-        return;
-  }   else {
+    if (filmsStr.indexOf(`${filmUser.id}`) && filmsStr.indexOf(`${filmUser.id}`) !== -1) {
+      btnWatchedEl.innerText = 'remove from watched';
+      btnWatchedEl.addEventListener('click', onClickBtnRemoveToWatched)
+    }
+    // else{
+    //   btnWatchedEl.addEventListener('click', onClickBtnAddToWatched);
+    // }
+  }
+
+ 
+  function onClickBtnAddToWatched() {
+    if (!localStorage.watchedFilm) {
+      const films = [];
+      
+      films.push(filmUser);
+      localStorage.setItem(`watchedFilm`, JSON.stringify(films));
+      btnWatchedEl.innerText = 'remove from watched';
+      
+    }else{
+     const filmsStr = localStorage.getItem('watchedFilm');
+
+        if (filmsStr.indexOf(`${filmUser.id}`) && filmsStr.indexOf(`${filmUser.id}`) !== -1) {
+          btnWatchedEl.innerText = 'remove from watched';
+          onClickBtnRemoveToWatched()
+        }else{
           const filmsArr = JSON.parse(filmsStr);
-  
+        
           filmsArr.push(filmUser);
           localStorage.setItem(`watchedFilm`, JSON.stringify(filmsArr));
+          btnWatchedEl.innerText = 'remove from watched';
+        }
+    }
   }
-}
-} 
-// else{  
-//     btnWatchedEl.innerText = 'add to watched'
-//     const filmsStr = localStorage.getItem('watchedFilm');
-//     const filmsArr = JSON.parse(filmsStr);
-//     for (let i = filmsArr; i < filmsArr.length; i++) {
-//       if(!film[i].id===filmUser.id){return}
-//       else{
-//         filmsArr.splice(i,1)
-//         localStorage.setItem(`watchedFilm`, JSON.stringify(filmsArr));
-//       }
-      
-//     }
-// }
-  );
-  // else{
-  //   btnWatchedEl.addEventListener('click', () => {
-  //   const filmsStr = localStorage.getItem('watchedFilm');
-  //   const filmsArr = JSON.parse(filmsStr);
-  
-  //   for (let i = 0; i <= filmsArr.length; i++) {
-  //     // console.log(filmsArr[i].id);
-  //     if(!(filmsArr.length>0 && filmsArr[i].id===filmUser.id)){
-  //       filmsArr.push(filmUser);
-  //       localStorage.setItem(`watchedFilm`, JSON.stringify(filmsArr));
-  //     }
-  //     else{
-  //       filmsArr.splice(i,1)
-  //       localStorage.setItem(`watchedFilm`, JSON.stringify(filmsArr));
-  //     }
-      
-  //   }
-  // })}
 
-  btnQueueEl.addEventListener('click', () => {
-    btnQueueEl.innerText = 'remove from Queue'
-    if (!localStorage.queueFilm) {
-      const films = [];
+  function onClickBtnRemoveToWatched() {
+    const filmsStr = localStorage.getItem('watchedFilm');
+    const filmsArr = JSON.parse(filmsStr);
 
-      films.push(filmUser);
-      localStorage.setItem(`queueFilm`, JSON.stringify(films));
-    } else {
-      const filmsStr = localStorage.getItem('queueFilm');
-
-      if (filmsStr.indexOf(`${filmUser.id}`) && filmsStr.indexOf(`${filmUser.id}`) !== -1) {
-        console.log('есть такой!!!');
-        return;
-      } else {
-            const filmsArr = JSON.parse(filmsStr);
-     
-            filmsArr.push(filmUser);
-            localStorage.setItem(`queueFilm`, JSON.stringify(filmsArr));
+    if(filmsArr.length===1){
+      localStorage.removeItem('watchedFilm');
+      btnWatchedEl.innerText = 'add to watched';
+      return
+    }
+    else{
+      if(filmsArr.length>1){
+        for (let i = 0; i <= filmsArr.length; i++) {
+          if(filmsArr[i].id===filmUser.id){
+            filmsArr.splice(i,1)
+            localStorage.setItem(`watchedFilm`, JSON.stringify(filmsArr));
+            btnWatchedEl.innerText = 'add to watched';
+            btnWatchedEl.removeEventListener('click', onClickBtnRemoveToWatched)
+          }
+        }
       }
     }
-  });
+  }
+
+// =====================
+
+  if(!localStorage.queueFilm){
+    btnQueueEl.addEventListener('click', onClickBtnAddToQueue);
+  } 
+  else {
+    const filmsStr = localStorage.getItem('queueFilm');
+    btnQueueEl.addEventListener('click', onClickBtnAddToQueue);
+
+    if (filmsStr.indexOf(`${filmUser.id}`) && filmsStr.indexOf(`${filmUser.id}`) !== -1) {
+      btnQueueEl.innerText = 'remove from queue';
+      btnQueueEl.addEventListener('click', onClickBtnRemoveToQueue)
+    }
+    // else{
+    //   btnWatchedEl.addEventListener('click', onClickBtnAddToWatched);
+    // }
+  }
+
+ 
+  function onClickBtnAddToQueue() {
+    if (!localStorage.queueFilm) {
+      const films = [];
+      
+      films.push(filmUser);
+      localStorage.setItem(`queueFilm`, JSON.stringify(films));
+      btnQueueEl.innerText = 'remove from queue';
+      
+    }else{
+     const filmsStr = localStorage.getItem('queueFilm');
+
+        if (filmsStr.indexOf(`${filmUser.id}`) && filmsStr.indexOf(`${filmUser.id}`) !== -1) {
+          btnQueueEl.innerText = 'remove from queue';
+          onClickBtnRemoveToQueue()
+        }else{
+          const filmsArr = JSON.parse(filmsStr);
+        
+          filmsArr.push(filmUser);
+          localStorage.setItem(`queueFilm`, JSON.stringify(filmsArr));
+          btnQueueEl.innerText = 'remove from queue';
+        }
+    }
+  }
+
+  function onClickBtnRemoveToQueue() {
+    const filmsStr = localStorage.getItem('queueFilm');
+    const filmsArr = JSON.parse(filmsStr);
+
+    if(filmsArr.length===1){
+      localStorage.removeItem('queueFilm');
+      btnQueueEl.innerText = 'add to queue';
+      return
+    }
+    else{
+      if(filmsArr.length>1){
+        for (let i = 0; i <= filmsArr.length; i++) {
+          if(filmsArr[i].id===filmUser.id){
+            filmsArr.splice(i,1)
+            localStorage.setItem(`queueFilm`, JSON.stringify(filmsArr));
+            btnQueueEl.innerText = 'add to queue';
+            btnQueueEl.removeEventListener('click', onClickBtnRemoveToQueue)
+          }
+        }
+      }
+    }
+  }
 }
+
+
+
+
+
+
+
+    

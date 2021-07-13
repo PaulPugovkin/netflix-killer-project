@@ -34,7 +34,7 @@ function onRenderCards (results) {
 
 function onRenderPagination(totalPages, pageNumber) {
     const pagesTotal = totalPages;
-    console.log(pagesTotal)
+    // console.log(pagesTotal)
     let paginationItem = '';
     let activePage;
     let backPage = pageNumber - 1;
