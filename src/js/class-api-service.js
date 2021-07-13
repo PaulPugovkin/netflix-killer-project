@@ -7,7 +7,7 @@ const options = {
 export default class FilmApiService {
   constructor() {
     this.searchQuery = '';
-    this.page = 1;
+    this.pageNumber = 1;
   }
 
   async fetchOnClickMovie() {
@@ -16,30 +16,38 @@ export default class FilmApiService {
   }
 
   async fetchPopularMovie() {
-    const response = await fetch(`${options.BASE_URL}trending/movie/day?api_key=${options.API_KEY}&page=${options.PAGE_NUM}`);
+    const response = await fetch(`${options.BASE_URL}trending/movie/day?api_key=${options.API_KEY}&page=${this.pageNumber}`);
     return await response.json();
   }
 
   async fetchGenres() {
-    const response = await fetch(`${options.BASE_URL}genre/movie/list?api_key=${options.API_KEY}&page=${options.PAGE_NUM}`);
+    const response = await fetch(`${options.BASE_URL}genre/movie/list?api_key=${options.API_KEY}&page=${this.pageNumber}`);
     return response.json();
   }
 
   async fetchByQuery() {
-    const response = await fetch(`${options.BASE_URL}search/movie?api_key=${options.API_KEY}&language=en-US&page=${options.PAGE_NUM}&query=${this.searchQuery}`);
+    const response = await fetch(`${options.BASE_URL}search/movie?api_key=${options.API_KEY}&language=en-US&page=${this.pageNumber}&query=${this.searchQuery}`);
     return response.json();
   }
 
-  incrementPage() {
-    this.page += 1;
+  get page() {
+    return this.pageNumber;
   }
 
-  decrementPage() {
-    this.page -= 1;
+  set page(newPage) {
+        this.pageNumber = newPage;
   }
+
+  // incrementPage() {
+  //   this.page += 1;
+  // }
+
+  // decrementPage() {
+  //   this.page -= 1;
+  // }
 
   resetPage() {
-    this.page = 1;
+    this.pageNumber = 1;
   }
 
   get query() {

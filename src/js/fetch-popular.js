@@ -39,7 +39,7 @@ function fetchPopularMovies() {
 }
  
 
-function fetchGenresArray() {
+ export function fetchGenresArray() {
     return filmApiService.fetchGenres()
         .then(({ genres }) => {
             return genres;
@@ -55,4 +55,4 @@ function fetchGenresArray() {
 
 
 
-export { fetchPopularMovies, fetchGenresArray};
+// export { fetchPopularMovies, fetchGenresArray};

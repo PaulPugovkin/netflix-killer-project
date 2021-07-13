@@ -38,7 +38,7 @@ const refs = getRefs();
 
 const filmApiService = new FilmApiService();
 
-refs.searchForm.addEventListener('submit', onSearch);
+// refs.searchForm.addEventListener('submit', onSearch);
 
 function fetchByQuery() {
   return filmApiService.fetchByQuery().then(({ results }) => {
@@ -53,20 +53,24 @@ function fetchByQuery() {
   })
 }
 
-function onSearch(event) {
-  event.preventDefault();
+//закоментила Аня, запускаю фетч из файла пагинации
+// function onSearch(event) {
+//   event.preventDefault();
 
-  const form = event.currentTarget;
-  filmApiService.query = form.elements.query.value;
+//   const form = event.currentTarget;
+//   filmApiService.query = form.elements.query.value;
 
-  fetchByQuery()
-    .then(renderCardByQuery)
-    .catch(error => {
-      console.log(error);
-    })
-    .finally(() => form.reset());
+//   fetchByQuery()
+//     .then(renderCardByQuery)
+//     .catch(error => {
+//       console.log(error);
+//     })
+//     .finally(() => form.reset());
+// }
+
+export function renderCardByQuery(results) {
+  const elements = movieCardTpl(results);
+  refs.moviesContainer.innerHTML = elements;
 }
 
-function renderCardByQuery(results) {
-  refs.moviesContainer.innerHTML = movieCardTpl(results);
-}
+

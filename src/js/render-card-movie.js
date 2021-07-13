@@ -1,24 +1,28 @@
 import getRefs from './get-refs';
-import { fetchPopularMovies} from './fetch-popular';
 import movieCardTpl from '../templates/movie-card.hbs';
-import { loader, loaderStyles } from "./spinner"
+// import { fetchPopularMovies} from './fetch-popular';
+
+// import { loader, loaderStyles } from "./spinner"
 
 
 const refs = getRefs();
 
-fetchCardMovie(); // рендер карточек популярных фильмов до ввода запроса
+//закоментила Аня, запускаю фетч из файла пагинации
+// fetchCardMovie();
+// рендер карточек популярных фильмов до ввода запроса
 
-export default function fetchCardMovie() {
-    loader.showLoading(loaderStyles);
-    fetchPopularMovies().then(results => {
-        // console.log(results);
-createCardMarkup(results);
-loader.hideLoading();
-});
-}
+
+// export default function fetchCardMovie() {
+//     loader.showLoading(loaderStyles);
+//     fetchPopularMovies().then(results => {
+//         // console.log(results);
+// createCardMarkup(results);
+// loader.hideLoading();
+// });
+// }
 
 // функция отображения разметки
-function createCardMarkup(results) {
+export function createCardMarkup(results) {
     // insertAdjacentHTML добавляет новые элменеты, а нам нужно их менять при переключении страницы
     // refs.moviesContainer.insertAdjacentHTML('beforeend', movieCardTpl(results));
     const elements = movieCardTpl(results);
