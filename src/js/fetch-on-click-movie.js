@@ -1,6 +1,6 @@
 import getRefs from "./get-refs";
-import addToLockalS from './local-storage-add';
-// import removeFromLockalS from './local-storage-remove';
+import addToWatchedLockalS from './ls-add-to-watched';
+import addToQueueLockalS from './ls-add-to-queue';
 import movieModalCard from '../templates/movie-modal-card.hbs';
 
 const refs = getRefs();
@@ -21,8 +21,9 @@ async function getMovieById(e) {
         const response = await fetch(`${options.BASE_URL}movie/${filmId}?api_key=${options.API_KEY}`);
         const result = await response.json();
         const render = await renderOpenedMovie(result);
-        const addToLS = await addToLockalS(result);
-        
+        const addToWatchedLS = await addToWatchedLockalS(result);
+        const addToQueueLS = await addToQueueLockalS(result);
+
         
         window.addEventListener('keydown', onEscKeyDown);
         document.body.classList.add('show-modal');

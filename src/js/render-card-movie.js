@@ -15,5 +15,6 @@ createCardMarkup(results);
 
 // функция отображения разметки
 function createCardMarkup(results) {
-refs.moviesContainer.insertAdjacentHTML('beforeend', movieCardTpl(results));
+    refs.moviesContainer.innerHTML='';
+    refs.moviesContainer.insertAdjacentHTML('beforeend', movieCardTpl(results));
 }
