@@ -29,7 +29,7 @@ async function getMovieById(e) {
     await addToWatchedLockalS(result);
     await addToQueueLockalS(result);
   } catch {
-    console.log('Oops!');
+    console.log('Oops, something went wrong. Please try again later.');
   }
   loader.hideLoading();
 }

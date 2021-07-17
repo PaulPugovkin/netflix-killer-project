@@ -41,7 +41,7 @@ async function fetchVideoMovieID(event) {
   } 
       
   } catch {
-     
+     console.log('Oops, something went wrong. Please try again later.');
     }
 }
 
